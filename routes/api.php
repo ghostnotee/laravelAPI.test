@@ -27,8 +27,11 @@ Route::get('/users', function () {
 });
 
 //Route::apiResource('/product', 'Api\ProductController');
-//Route::apiResource('users', 'Api\UserController');
+//Route::apiResource('/users', 'Api\UserController');
+//Route::apiResource('/categories', 'Api\CategoryController');
+
 Route::apiResources([
     '/products' => 'Api\ProductController',
-    '/users' => 'Api\UserController'
+    '/users' => 'Api\UserController',
+    '/categories'=>'Api\CategoryController'
 ]);
