@@ -14,11 +14,32 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //return Product::all();
         //return response()->json(Product::all(), 200);
-        return response(Product::all(), 200);
+        //return response(Product::all(), 200);
+        // 10 kayıt dönecek.
+        //return response(Product::paginate(10), 200);
+
+        // belirtilmzse 0'dan başla. kaçıncıdan balayacak.
+        $offset = $request->has('offset') ? $request->query('offset') : 0;
+        // belirtilmezse bir sayfaya 10 kayıt al.
+        $limit = $request->limit ? $request->limit : 10;
+
+        // boş query builder oluşturuldu.
+        $queryBuilder = Product::query();
+
+        if ($request->has('q'))
+            // name kolonunda verilen değere göre filtreleme.
+            $queryBuilder->where('name', 'like', '%' . $request->query('q') . '%');
+
+        if ($request->has('sortBy'))
+            $queryBuilder->orderBy($request->query('sortBy'), $request->query('sort', 'DESC'));
+
+        $data = $queryBuilder->offset($offset)->limit($limit)->get();
+
+        return response($data, 200);
     }
 
     /**
@@ -47,7 +68,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Product $product
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -91,6 +112,7 @@ class ProductController extends Controller
      *
      * @param \App\Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
