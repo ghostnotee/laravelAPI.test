@@ -41,4 +41,6 @@ Route::get('/category/{slug}', function ($slug) {
     return "Category Slug: $slug";
 })->name('category.show');
 
-Route::get('/product/{id}/{type?}', 'ProductController@show')->name('product.show');
+//Route::get('/product/{id}/{type?}', 'ProductController@show')->name('product.show');
+
+Route::resource('products', 'ProductController')->only(['index', 'show']);
