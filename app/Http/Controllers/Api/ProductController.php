@@ -5,27 +5,52 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use function foo\func;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //return Product::all();
         //return response()->json(Product::all(), 200);
-        return response(Product::all(), 200);
+        //return response(Product::all(), 200);
+        // 10 kayıt dönecek.
+        //return response(Product::paginate(10), 200);
+
+        // belirtilmzse 0'dan başla. kaçıncıdan balayacak.
+        $offset = $request->has('offset') ? $request->query('offset') : 0;
+
+        // belirtilmezse bir sayfaya 10 kayıt al.
+        $limit = $request->limit ? $request->limit : 10;
+
+        // boş query builder oluşturuldu.
+        $queryBuilder = Product::query()->with('categories');
+
+        if ($request->has('q'))
+            // name kolonunda verilen değere göre filtreleme.
+            $queryBuilder->where('name', 'like', '%' . $request->query('q') . '%');
+
+        if ($request->has('sortBy'))
+            $queryBuilder->orderBy($request->query('sortBy'), $request->query('sort', 'DESC'));
+
+        $data = $queryBuilder->offset($offset)->limit($limit)->get();
+        $data = $data->makeHidden('slug');              // slug kolonunu çıktıya vermiyoruz.
+
+        return response($data, 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -47,8 +72,8 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Product $product
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return Response
      */
     public function show($id)
     {
@@ -66,9 +91,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Product $product
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Product $product
+     * @return Response
      */
     public function update(Request $request, Product $product)
     {
@@ -89,12 +114,35 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Product $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return Response
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(['message' => 'Product deleted'], 200);
+        return response(['message' => 'Product deleted.'], 200);
+    }
+
+    public function custom1()
+    {
+        //return Product::select('id','name')->orderBy('created_at','desc')->take(10 )->get();
+        return Product::selectRaw('id as product_id, name as product_name')
+            ->orderBy('created_at', 'desc')->take(10)->get();
+    }
+
+    public function custom2()
+    {
+        $products = Product::orderBy('created_at', 'desc')->take(10)->get();
+
+        $mapped = $products->map(function ($product) {
+            return [
+                '_id' => $product['id'],
+                'product_name' => $product['name'],
+                'product_price' => $product['price'] * 1.03,
+            ];
+        });
+
+        return $mapped->all();
     }
 }
