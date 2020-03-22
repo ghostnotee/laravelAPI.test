@@ -18,20 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/hello', function () {
-    return "Merhaba RESTful API";
-});
 
-Route::get('/users', function () {
-    return factory(User::class, 10)->make();
-});
-
-//Route::apiResource('/product', 'Api\ProductController');
-//Route::apiResource('/users', 'Api\UserController');
-//Route::apiResource('/categories', 'Api\CategoryController');
+Route::get('/categories/custom1', 'Api\CategoryController@custom1');
+Route::get('/products/custom1', 'Api\ProductController@custom1');
+Route::get('/products/custom2', 'Api\ProductController@custom2');
+Route::get('/categories/report1', 'Api\CategoryController@report1');
 
 Route::apiResources([
     '/products' => 'Api\ProductController',
     '/users' => 'Api\UserController',
-    '/categories'=>'Api\CategoryController'
+    '/categories' => 'Api\CategoryController'
 ]);

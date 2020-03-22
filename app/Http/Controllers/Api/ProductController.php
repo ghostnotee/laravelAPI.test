@@ -7,6 +7,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use function foo\func;
 
 class ProductController extends Controller
 {
@@ -25,11 +26,12 @@ class ProductController extends Controller
 
         // belirtilmzse 0'dan başla. kaçıncıdan balayacak.
         $offset = $request->has('offset') ? $request->query('offset') : 0;
+
         // belirtilmezse bir sayfaya 10 kayıt al.
         $limit = $request->limit ? $request->limit : 10;
 
         // boş query builder oluşturuldu.
-        $queryBuilder = Product::query();
+        $queryBuilder = Product::query()->with('categories');
 
         if ($request->has('q'))
             // name kolonunda verilen değere göre filtreleme.
@@ -39,6 +41,7 @@ class ProductController extends Controller
             $queryBuilder->orderBy($request->query('sortBy'), $request->query('sort', 'DESC'));
 
         $data = $queryBuilder->offset($offset)->limit($limit)->get();
+        $data = $data->makeHidden('slug');              // slug kolonunu çıktıya vermiyoruz.
 
         return response($data, 200);
     }
@@ -119,5 +122,27 @@ class ProductController extends Controller
     {
         $product->delete();
         return response(['message' => 'Product deleted.'], 200);
+    }
+
+    public function custom1()
+    {
+        //return Product::select('id','name')->orderBy('created_at','desc')->take(10 )->get();
+        return Product::selectRaw('id as product_id, name as product_name')
+            ->orderBy('created_at', 'desc')->take(10)->get();
+    }
+
+    public function custom2()
+    {
+        $products = Product::orderBy('created_at', 'desc')->take(10)->get();
+
+        $mapped = $products->map(function ($product) {
+            return [
+                '_id' => $product['id'],
+                'product_name' => $product['name'],
+                'product_price' => $product['price'] * 1.03,
+            ];
+        });
+
+        return $mapped->all();
     }
 }

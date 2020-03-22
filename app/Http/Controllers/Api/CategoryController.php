@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -81,5 +82,23 @@ class CategoryController extends Controller
     {
         $category->delete();
         return response(['message' => 'Category deleted.'], 200);
+    }
+
+    public function custom1()
+    {
+        //return Category::pluck('id');
+        //return  Category::pluck('id','name');
+        return Category::pluck('name', 'id');
+    }
+
+    public function report1()
+    {
+        return DB::table('product_categories as pc')
+            ->selectRaw('c.name, COUNT(*) as total')
+            ->join('categories as c', 'c.id', '=', 'pc.category_id')
+            ->join('products as p', 'p.id', '=', 'product_id')
+            ->groupBy('c.name')
+            ->orderByRaw('COUNT(*) DESC')
+            ->get();
     }
 }

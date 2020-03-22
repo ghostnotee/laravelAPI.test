@@ -28,6 +28,9 @@ class UserController extends Controller
             $queryBuilder->orderBy($request->query('sortBy'), $request->query('sort', 'DESC'));
 
         $data = $queryBuilder->offset($offset)->limit($limit)->get();
+
+        $data->each->setAppends(['full_name']);
+
         return response($data, 200);
     }
 
