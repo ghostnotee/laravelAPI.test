@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\UserCollection;
+
 use App\Http\Resources\UserResource;
 use App\User;
 use Exception;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -45,8 +44,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+            'name' => 'required|string|max:50',
+            'password' => 'required'
+        ]);
 
+        if ($validator->fails())
+            return $this->apiResponse(ResultType::Error, $validator->errors(), 'Validation error', 422);
 
         $user = new User;
         $user->name = $request->name;
