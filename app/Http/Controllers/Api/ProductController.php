@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductWithCategoriesResource;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Return_;
 use function foo\func;
 
 class ProductController extends Controller
@@ -144,5 +147,19 @@ class ProductController extends Controller
         });
 
         return $mapped->all();
+    }
+
+    public function custom3()
+    {
+        $products = Product::paginate(10);
+
+        return ProductResource::collection($products);
+    }
+
+    public function listWithCategories()
+    {
+        $products = Product::with('categories')->paginate(10);
+
+        return ProductWithCategoriesResource::collection($products);
     }
 }

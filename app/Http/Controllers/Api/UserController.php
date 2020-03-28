@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\User;
 use Exception;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -42,6 +45,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all());
+
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -97,5 +103,23 @@ class UserController extends Controller
         $user->delete();
 
         return response(['message' => 'User deleted'], 200);
+    }
+
+    public function custom1()
+    {
+        //$user2 = User::find(2);
+        //return new UserResource($user2);
+
+        $users = User::all();
+        //return UserResource::collection($users);
+        //return new UserCollection($users);
+
+        // User Collection dosyası yerine additional ile de ek kolon ve değerler verip dönüş sağlanılabilir.
+        return UserResource::collection($users)->additional([
+            'meta' => [
+                'total_users' => $users->count(),
+                'custom' => 'value'
+            ]
+        ]);
     }
 }
