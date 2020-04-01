@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Resources\UserResource;
 use App\User;
 use Exception;
@@ -39,20 +40,11 @@ class UserController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param UserStoreRequest $request
      * @return ResponseFactory|Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
-            'name' => 'required|string|max:50',
-            'password' => 'required'
-        ]);
-
-        if ($validator->fails())
-            return $this->apiResponse(ResultType::Error, $validator->errors(), 'Validation error', 422);
-
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
