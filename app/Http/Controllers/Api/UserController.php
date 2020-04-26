@@ -9,7 +9,6 @@ use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
@@ -41,10 +40,11 @@ class UserController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param UserStoreRequest $request
-     * @return ResponseFactory|Response
+     * @return Response
      */
     public function store(UserStoreRequest $request)
     {
+dd($request->toArray());
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;

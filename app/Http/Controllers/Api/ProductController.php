@@ -9,8 +9,6 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use PhpParser\Node\Stmt\Return_;
-use function foo\func;
 
 class ProductController extends Controller
 {

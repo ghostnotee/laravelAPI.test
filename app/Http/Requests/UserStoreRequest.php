@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class UserStoreRequest extends BaseFormRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class UserStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +27,15 @@ class UserStoreRequest extends BaseFormRequest
             'email' => 'required|email|unique:users',
             'name' => 'required|string|max:50',
             'password' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'email alanı gerekli',
+            'name.required' => 'name alanı zorunludur',
+            'password.required'=>'password alanı mecburidir'
         ];
     }
 }
