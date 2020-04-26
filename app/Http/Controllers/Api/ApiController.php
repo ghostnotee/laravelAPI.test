@@ -11,16 +11,17 @@ class ApiController extends Controller
         $response = [];
         $response['success'] = $resultType == ResultType::Success ? true : false;
 
-        if ($resultType != ResultType::Error) {
-            $response['data'] = $data;
-        }
+        if (isset($data)) {
+            if ($resultType != ResultType::Error) {
+                $response['data'] = $data;
+            }
 
-        if ($resultType == ResultType::Error) {
-            $response['errors'] = $data;
+            if ($resultType == ResultType::Error) {
+                $response['errors'] = $data;
+            }
         }
-
-        if (isset($message)){
-            $response['message']=$message;
+        if (isset($message)) {
+            $response['message'] = $message;
         }
 
         return response()->json($response, $code);

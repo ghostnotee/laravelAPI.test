@@ -9,7 +9,6 @@ use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends ApiController
 {
@@ -41,7 +40,7 @@ class UserController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param UserStoreRequest $request
-     * @return ResponseFactory|Response
+     * @return Response
      */
     public function store(UserStoreRequest $request)
     {
@@ -105,6 +104,8 @@ class UserController extends ApiController
     public function custom1()
     {
         //$user2 = User::find(2);
+        //data kapsayıcısını kaldırmak için.
+        //UserResource::withoutWrapping();
         //return new UserResource($user2);
 
         $users = User::all();

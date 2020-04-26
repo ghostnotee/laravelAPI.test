@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
     //return redirect()->route('category.show', ['slug' => 'books']);
-});
+});*/
 
-Route::prefix('hello')->group(function () {
+/*Route::prefix('hello')->group(function () {
     Route::get('/', function () {
         return "Hi API 😎";
     });
@@ -35,12 +35,14 @@ Route::prefix('hello')->group(function () {
     Route::get('/hello-json3', function () {
         return response()->json(['message' => 'Hello API 😛']);
     });
-});
+});*/
 
-Route::get('/category/{slug}', function ($slug) {
+/*Route::get('/category/{slug}', function ($slug) {
     return "Category Slug: $slug";
-})->name('category.show');
+})->name('category.show');*/
 
 //Route::get('/product/{id}/{type?}', 'ProductController@show')->name('product.show');
 
-Route::resource('products', 'ProductController')->only(['index', 'show']);
+//Route::resource('products', 'ProductController')->only(['index', 'show']);    // Yalnızca belirtilen metodları kullan.
+
+//Route::resource('products','ProductController')->except(['destroy']);   // destroy hariç.
