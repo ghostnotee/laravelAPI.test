@@ -44,7 +44,6 @@ class UserController extends ApiController
      */
     public function store(UserStoreRequest $request)
     {
-dd($request->toArray());
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -105,6 +104,8 @@ dd($request->toArray());
     public function custom1()
     {
         //$user2 = User::find(2);
+        //data kapsayıcısını kaldırmak için.
+        //UserResource::withoutWrapping();
         //return new UserResource($user2);
 
         $users = User::all();
