@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductWithCategoriesResource;
 use App\Product;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-class ProductController extends Controller
+
+class ProductController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -74,19 +77,18 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param $id
-     * @return Response
+     * @return JsonResponse
      */
     public function show($id)
     {
         //return $product;
         //return response($product, 200);
-
-        $product = Product::find($id);
-        if ($product)
-            return response($product, 200);
-        else
-            return response(['message' => 'Product not found!'], 404);
-
+        try {
+            $product = Product::findOrFail($id);
+            return $this->apiResponse(ResultType::Success, $product, 'Product found!', 200);
+        } catch (ModelNotFoundException $exception) {
+            return $this->apiResponse(ResultType::Error, null, 'Product not found!', 404);
+        }
     }
 
     /**
@@ -117,7 +119,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Product $product)
     {
