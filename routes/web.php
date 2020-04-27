@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth')->get('/secured', function () {
+    return "You are authenticated!";
+});
+
 /*Route::get('/', function () {
     return view('welcome');
     //return redirect()->route('category.show', ['slug' => 'books']);
@@ -46,3 +50,7 @@ use Illuminate\Support\Facades\Route;
 //Route::resource('products', 'ProductController')->only(['index', 'show']);    // Yalnızca belirtilen metodları kullan.
 
 //Route::resource('products','ProductController')->except(['destroy']);   // destroy hariç.
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
