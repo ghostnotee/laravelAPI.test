@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
+Route::middleware('auth')->get('/secured', function () {
+    return "You are authenticated!";
+});
+
+Route::get('/', function () {
     return view('welcome');
     //return redirect()->route('category.show', ['slug' => 'books']);
-});*/
+});
 
 /*Route::prefix('hello')->group(function () {
     Route::get('/', function () {
