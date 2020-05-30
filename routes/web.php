@@ -17,6 +17,11 @@ Route::middleware('auth')->get('/secured', function () {
     return "You are authenticated!";
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/upload','HomeController@upload')->name('upload');
+
 /*Route::get('/', function () {
     return view('welcome');
     //return redirect()->route('category.show', ['slug' => 'books']);
@@ -50,7 +55,3 @@ Route::middleware('auth')->get('/secured', function () {
 //Route::resource('products', 'ProductController')->only(['index', 'show']);    // Yalnızca belirtilen metodları kullan.
 
 //Route::resource('products','ProductController')->except(['destroy']);   // destroy hariç.
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
