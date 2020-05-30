@@ -20,12 +20,14 @@ Route::middleware('auth')->get('/secured', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/upload','HomeController@upload')->name('upload');
+Route::get('/upload', 'HomeController@upload_form')->name('upload');
+Route::get('/download/{fileName}', 'HomeController@download')->name('download');
 
-/*Route::get('/', function () {
+
+Route::get('/', function () {
     return view('welcome');
     //return redirect()->route('category.show', ['slug' => 'books']);
-});*/
+});
 
 /*Route::prefix('hello')->group(function () {
     Route::get('/', function () {
