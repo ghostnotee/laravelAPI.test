@@ -13,7 +13,7 @@ class UploadRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UploadRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'uploadFile' => 'required|image|mimes:jpeg,png,jpg|max:5120'
         ];
     }
 }

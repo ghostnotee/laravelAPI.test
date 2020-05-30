@@ -7,7 +7,6 @@
                 <div class="card">
                     <div class="card-header">Upload</div>
                     <div class="card-body">
-                        <div id="output"></div>
                         <form role="form" class="form" onsubmit="return false;">
                             <div class="form-group">
                                 <label for="uploadFile">Select File</label>
@@ -15,6 +14,7 @@
                             </div>
                             <button type="submit" id="uploadBtn" class="btn btn-primary">Upload!</button>
                         </form>
+                        <div id="output"></div>
                     </div>
                 </div>
             </div>
@@ -30,22 +30,22 @@
                 var data = new FormData();
                 // userId değişken adıyla beraber 1 değerini gönderme.
                 data.append('userId', '1');
-                //uploadFile değişken ismi ile uploadFile id'li dosyayı gönderiyoruz.
+                //uploadFile değişken ismi ile; uploadFile id'li elemandan gelen dosyanın 0'ıncı indexini gönderiyoruz.
                 data.append('uploadFile', document.getElementById('uploadFile').files[0]);
 
                 var config = {
+                    headers: {'Content-Type': 'multipart/form-data'},
                     onUploadProgress: function (progressEvent) {
                         var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     }
                 };
 
-                axios.put('/upload/server', data, config)
+                axios.post('http://laravelapi.test/api/upload', data, config)
                     .then(function (res) {
-                        output.className = 'container';
-                        output.innerHTML = res.data;
+                        output.innerHTML = res.data.url;
                     })
                     .catch(function (err) {
-                        output.className = 'container text-danger';
+                        output.className = 'text-danger';
                         output.innerHTML = err.message;
                     });
             };
