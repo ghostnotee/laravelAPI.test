@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // upload_form fuction'u dışındaki fonksiyonlarda authentication yap.
+        // upload_form ve download fuction'ları dışındaki fonksiyonlarda authentication yap.
         $this->middleware('auth', ['except' => ['upload_form', 'download']]);
     }
 
