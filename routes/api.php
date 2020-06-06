@@ -30,11 +30,13 @@ Route::get('/categories/report1', 'Api\CategoryController@report1');
 Route::get('/categories/custom1', 'Api\CategoryController@custom1');
 Route::get('/products/listwithcategories', 'Api\ProductController@listWithCategories');
 
-Route::apiResources([
-    '/products'   => 'Api\ProductController',
-    '/users'      => 'Api\UserController',
-    '/categories' => 'Api\CategoryController'
-]);
+Route::middleware('auth:api')->group(function () {
+    Route::apiResources([
+        '/products'   => 'Api\ProductController',
+        '/users'      => 'Api\UserController',
+        '/categories' => 'Api\CategoryController'
+    ]);
+});
 
 Route::post('auth/login', 'Api\AuthController@login');
 Route::post('/upload', 'Api\UploadController@upload');
@@ -51,4 +53,3 @@ Route::middleware('api-token')->group(function () {
         ]);
     });
 });
-
