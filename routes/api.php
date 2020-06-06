@@ -30,7 +30,8 @@ Route::get('/categories/report1', 'Api\CategoryController@report1');
 Route::get('/categories/custom1', 'Api\CategoryController@custom1');
 Route::get('/products/listwithcategories', 'Api\ProductController@listWithCategories');
 
-Route::middleware('auth:api')->group(function () {
+// database users tablosuna oluşturduğunuz rate_limit kolonu ile kullanıcıya göre limit atama.
+Route::middleware(['auth:api', 'throttle:rate_limit,1'])->group(function () {
     Route::apiResources([
         '/products'   => 'Api\ProductController',
         '/users'      => 'Api\UserController',
