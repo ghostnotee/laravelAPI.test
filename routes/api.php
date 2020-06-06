@@ -39,6 +39,16 @@ Route::middleware(['auth:api', 'throttle:rate_limit,1'])->group(function () {
     ]);
 });
 
+// 1 dakikada, Guest kişiler 5 authenticated users 10 istek yapabilir.
+Route::middleware('throttle:5|10,1')->group(function () {
+    Route::get('/throttle-guest', function () {
+        echo "Throttle guest test...";
+    });
+    Route::get('/throttle-auth', function (Request $request) {
+        echo "Throttle auth test...";
+    })->middleware('auth:api');
+});
+
 Route::post('auth/login', 'Api\AuthController@login');
 Route::post('/upload', 'Api\UploadController@upload');
 
