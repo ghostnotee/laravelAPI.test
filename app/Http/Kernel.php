@@ -41,7 +41,8 @@ class Kernel extends HttpKernel
             ],
 
             'api' => [
-                'throttle:60,1',
+                //bir kullanıcı bir dakika içerisinde 5 istek yapabilir.
+                'throttle:5,1',
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
             ],
         ];
