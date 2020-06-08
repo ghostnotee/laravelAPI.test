@@ -42,8 +42,10 @@ class Kernel extends HttpKernel
 
             'api' => [
                 //bir kullanıcı bir dakika içerisinde 5 istek yapabilir.
-                'throttle:5,1',
+                //'throttle:5,1',
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
+                \App\Http\Middleware\ApiLogger::class,
+                \App\Http\Middleware\HttpHeader::class
             ],
         ];
 
