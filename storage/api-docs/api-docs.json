@@ -1,0 +1,32 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API Documentation",
+        "description": "This is a sample API documentation.",
+        "termsOfService": "http://laravelapi.test/api/terms",
+        "contact": {
+            "email": "selcukbilgen@hotmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "List all products",
+                "operationId": "App\\Http\\Controllers\\Api\\ProductController::index",
+                "responses": {
+                    "200": {
+                        "description": "A paged array of products"
+                    }
+                }
+            }
+        }
+    }
+}

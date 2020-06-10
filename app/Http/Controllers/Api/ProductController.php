@@ -19,6 +19,16 @@ class ProductController extends ApiController
      * Display a listing of the resource.
      *
      * @return Response
+     *
+     * @OA\Get(
+     *     path="/api/products",
+     *     tags={"product"},
+     *     summary="List all products",
+     *     @OA\Response(
+     *     response=200,
+     *     description="A paged array of products"
+     *     )
+     * )
      */
     public function index(Request $request)
     {
