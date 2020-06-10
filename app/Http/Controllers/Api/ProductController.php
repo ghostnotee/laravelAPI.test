@@ -24,9 +24,26 @@ class ProductController extends ApiController
      *     path="/api/products",
      *     tags={"product"},
      *     summary="List all products",
+     *     @OA\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     description="How many items to return at one time",
+     *     required=false
+     *     ),
      *     @OA\Response(
      *     response=200,
-     *     description="A paged array of products"
+     *     description="A paged array of products",
+     *     @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *     response=401,
+     *     description="Unauthorized",
+     *     @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *     response=default,
+     *     description="Unexpected Error",
+     *     @OA\JsonContent()
      *     )
      * )
      */

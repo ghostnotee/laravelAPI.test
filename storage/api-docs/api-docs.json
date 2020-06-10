@@ -21,9 +21,30 @@
                 ],
                 "summary": "List all products",
                 "operationId": "App\\Http\\Controllers\\Api\\ProductController::index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many items to return at one time",
+                        "required": false
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "A paged array of products"
+                        "description": "A paged array of products",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
