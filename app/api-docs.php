@@ -26,6 +26,21 @@
  */
 
 /**
+ * @OA\Schema(
+ *     title="ApiResponse",
+ *     description="ApiResponse model",
+ *     type="object",
+ *     schema="ApiResponse",
+ *     properties={
+ *      @OA\Property(property="success", type="boolean"),
+ *      @OA\Property(property="data", type="object"),
+ *      @OA\Property(property="message", type="string"),
+ *      @OA\Property(property="errors", type="object"),
+ *      }
+ * )
+ */
+
+/**
  *  @OA\Get(
  *     path="/api/products",
  *     tags={"product"},
@@ -45,6 +60,37 @@
  *          type="array",
  *          @OA\Items(ref="#/components/schemas/Product")
  *      )
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     )
+ * )
+ */
+
+/**
+ *  @OA\Get(
+ *     path="/api/products/{productId}",
+ *     tags={"product"},
+ *     summary="Get Product By Id",
+ *     operationId="show",
+ *     @OA\Parameter(
+ *      name="productId",
+ *      in="path",
+ *      description="The id column of the product to retrieve",
+ *      required=true,
+ *      @OA\Schema(type="integer", format="int32")
+ *     ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product detail",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
  *     ),
  *     @OA\Response(
  *     response=401,
