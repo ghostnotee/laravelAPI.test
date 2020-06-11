@@ -1,0 +1,161 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API Documentation",
+        "description": "This is a sample API documentation.",
+        "termsOfService": "http://laravelapi.test/api/terms",
+        "contact": {
+            "email": "selcukbilgen@hotmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "List all products",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many items to return at one time",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A paged array of products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{productId}": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Get Product By Id",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "The id column of the product to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product detail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "title": "Product",
+                "description": "Product model",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id column",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ApiResponse": {
+                "title": "ApiResponse",
+                "description": "ApiResponse model",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "data": {
+                        "type": "object"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "errors": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -9,7 +9,8 @@ class Product extends Model
     //protected $table = 'products';
     //protected $fillable = ['name','slug','price','description'];      // belirtilen kolonlara ekleme yapılabilir.
     protected $guarded = [];                                            // tüm kolonlar eklenip güncellenebilir.
-    //protected $hidden = ['slug'];                                       // belirtilen kolon çıktılarda gösterilmeyecek.
+
+    //protected $hidden = ['slug'];                                     // belirtilen kolon çıktılarda gösterilmeyecek.
 
     public function categories()
     {
