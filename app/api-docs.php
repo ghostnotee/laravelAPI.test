@@ -41,9 +41,9 @@
  *     @OA\Response(
  *      response=200,
  *      description="A paged array of products",
- *     @OA\JsonContent(
- *     type="array",
- *     @OA\Items(ref="#/components/schemas/Product")
+ *      @OA\JsonContent(
+ *          type="array",
+ *          @OA\Items(ref="#/components/schemas/Product")
  *      )
  *     ),
  *     @OA\Response(
@@ -52,7 +52,7 @@
  *     @OA\JsonContent()
  *     ),
  *     @OA\Response(
- *     response=default,
+ *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
  *     )
