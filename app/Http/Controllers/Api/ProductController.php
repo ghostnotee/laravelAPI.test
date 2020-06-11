@@ -57,7 +57,7 @@ class ProductController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -70,10 +70,7 @@ class ProductController extends ApiController
         $product->price = $request->price;
         $product->save();
 
-        return response([
-            'data' => $product,
-            'message' => 'Product created.'
-        ], 201);
+        return $this->apiResponse(ResultType::Success, $product, 'Product created.', 201);
     }
 
     /**

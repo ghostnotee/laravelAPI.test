@@ -19,7 +19,8 @@
  *     schema="Product",
  *     properties={
  *      @OA\Property(property="id", type="integer", format="int64", description="id column"),
- *      @OA\Property(property="name", type="string")
+ *      @OA\Property(property="name", type="string"),
+ *      @OA\Property(property="price", type="number")
  *      },
  *     required={"id", "name"}
  * )
@@ -90,6 +91,35 @@
  *     @OA\Response(
  *      response=200,
  *      description="Product detail",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     )
+ * )
+ */
+
+/**
+ *  @OA\Post(
+ *     path="/api/products",
+ *     tags={"product"},
+ *     summary="Create new product",
+ *     operationId="show",
+ *     @OA\RequestBody(
+ *      description="Store a product",
+ *      required=true,
+ *      @OA\JsonContent(ref="#/components/schemas/Product")
+ *     ),
+ *     @OA\Response(
+ *      response=201,
+ *      description="Product created",
  *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
  *     ),
  *     @OA\Response(

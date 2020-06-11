@@ -64,6 +64,52 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Create new product",
+                "operationId": "show",
+                "requestBody": {
+                    "description": "Store a product",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/products/{productId}": {
@@ -133,6 +179,9 @@
                     },
                     "name": {
                         "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
                     }
                 },
                 "type": "object"
