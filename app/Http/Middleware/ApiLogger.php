@@ -23,7 +23,7 @@ class ApiLogger
     }
 
     // istek tamamlandıktan sonra çalışacak fonksiyon.
-    public function terminate(Request $request, JsonResponse $response)
+    public function terminate(Request $request, $response)
     {
         if (env('API_LOGGER', true)) {
             $startTime = LARAVEL_START;
