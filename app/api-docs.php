@@ -42,7 +42,7 @@
  */
 
 /**
- *  @OA\Get(
+ * @OA\Get(
  *     path="/api/products",
  *     tags={"product"},
  *     summary="List all products",
@@ -76,7 +76,7 @@
  */
 
 /**
- *  @OA\Get(
+ * @OA\Get(
  *     path="/api/products/{productId}",
  *     tags={"product"},
  *     summary="Get Product By Id",
@@ -107,11 +107,11 @@
  */
 
 /**
- *  @OA\Post(
+ * @OA\Post(
  *     path="/api/products",
  *     tags={"product"},
  *     summary="Create new product",
- *     operationId="show",
+ *     operationId="store",
  *     @OA\RequestBody(
  *      description="Store a product",
  *      required=true,
@@ -120,6 +120,42 @@
  *     @OA\Response(
  *      response=201,
  *      description="Product created",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     )
+ * )
+ */
+
+/**
+ * @OA\Put(
+ *     path="/api/products/{productId}",
+ *     tags={"product"},
+ *     summary="Uptate product",
+ *     operationId="update",
+ *     @OA\Parameter(
+ *      name="productId",
+ *      in="path",
+ *      description="Update product by id",
+ *      required=true,
+ *      @OA\Schema(type="integer", format="int32")
+ *      ),
+ *     @OA\RequestBody(
+ *      description="Update product",
+ *      required=true,
+ *      @OA\JsonContent(ref="#/components/schemas/Product")
+ *     ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product updated",
  *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
  *     ),
  *     @OA\Response(

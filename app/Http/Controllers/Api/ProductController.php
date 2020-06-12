@@ -96,7 +96,7 @@ class ProductController extends ApiController
      *
      * @param Request $request
      * @param Product $product
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, Product $product)
     {
@@ -108,10 +108,7 @@ class ProductController extends ApiController
         $product->price = $request->price;
         $product->save();
 
-        return response([
-            'data' => $product,
-            'message' => 'Product updated.'
-        ], 200);
+        return $this->apiResponse(ResultType::Success, $product, 'Product updated!', 200);
     }
 
     /**
