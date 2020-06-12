@@ -12,6 +12,27 @@
  */
 
 /**
+ * @OA\Server(
+ *     description="Laravel API Test Server",
+ *     url="http://laravelapi.test/api"
+ * )
+ */
+
+/**
+ * @OA\Server(
+ *     description="Laravel API Test Server 2",
+ *     url="http://laravelapi.stage/api"
+ * )
+ */
+
+/**
+ * @OA\ExternalDocumentation(
+ *     description="Find out more about Laravel API",
+ *     url="http://laravelapi.test/example-extra-documantation"
+ * )
+ */
+
+/**
  * @OA\Schema(
  *     title="Product",
  *     description="Product model",
@@ -72,7 +93,7 @@
 
 /**
  * @OA\Get(
- *     path="/api/products",
+ *     path="/products",
  *     tags={"product"},
  *     summary="List all products",
  *     operationId="index",
@@ -109,7 +130,7 @@
 
 /**
  * @OA\Get(
- *     path="/api/products/{productId}",
+ *     path="/products/{productId}",
  *     tags={"product"},
  *     summary="Get Product By Id",
  *     operationId="show",
@@ -143,7 +164,7 @@
 
 /**
  * @OA\Post(
- *     path="/api/products",
+ *     path="/products",
  *     tags={"product"},
  *     summary="Create new product",
  *     operationId="store",
@@ -175,7 +196,7 @@
 
 /**
  * @OA\Put(
- *     path="/api/products/{productId}",
+ *     path="/products/{productId}",
  *     tags={"product"},
  *     summary="Uptate product",
  *     operationId="update",
@@ -214,7 +235,7 @@
 
 /**
  * @OA\Delete(
- *     path="/api/products/{productId}",
+ *     path="/products/{productId}",
  *     tags={"product"},
  *     summary="Delete a product.",
  *     operationId="destroy",
