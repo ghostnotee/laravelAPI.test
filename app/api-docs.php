@@ -53,6 +53,24 @@
  */
 
 /**
+ * @OA\SecurityScheme(
+ *     type="apiKey",
+ *     name="api_token",
+ *     securityScheme="api_token",
+ *     in="query"
+ * )
+ */
+
+/**
+ * @OA\SecurityScheme(
+ *     type="http",
+ *     securityScheme="bearer_token",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
+ */
+
+/**
  * @OA\Get(
  *     path="/api/products",
  *     tags={"product"},
@@ -82,7 +100,10 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
 
@@ -113,7 +134,10 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
 
@@ -142,7 +166,10 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
 
@@ -178,7 +205,10 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
 
@@ -209,6 +239,9 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
