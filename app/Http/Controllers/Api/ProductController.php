@@ -115,13 +115,13 @@ class ProductController extends ApiController
      * Remove the specified resource from storage.
      *
      * @param Product $product
-     * @return Response
+     * @return JsonResponse
      * @throws Exception
      */
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(['message' => 'Product deleted.'], 200);
+        return $this->apiResponse(ResultType::Success, null, 'Product deleted!', 200);
     }
 
     public function custom1()

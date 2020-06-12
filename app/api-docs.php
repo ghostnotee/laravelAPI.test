@@ -170,3 +170,34 @@
  *     )
  * )
  */
+
+/**
+ * @OA\Delete(
+ *     path="/api/products/{productId}",
+ *     tags={"product"},
+ *     summary="Delete a product.",
+ *     operationId="destroy",
+ *     @OA\Parameter(
+ *      name="productId",
+ *      in="path",
+ *      description="Delete product by id",
+ *      required=true,
+ *      @OA\Schema(type="integer", format="int32")
+ *      ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product delete response",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     )
+ * )
+ */
