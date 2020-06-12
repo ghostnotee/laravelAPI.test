@@ -57,7 +57,7 @@ class ProductController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -70,10 +70,7 @@ class ProductController extends ApiController
         $product->price = $request->price;
         $product->save();
 
-        return response([
-            'data' => $product,
-            'message' => 'Product created.'
-        ], 201);
+        return $this->apiResponse(ResultType::Success, $product, 'Product created.', 201);
     }
 
     /**
@@ -99,7 +96,7 @@ class ProductController extends ApiController
      *
      * @param Request $request
      * @param Product $product
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, Product $product)
     {
@@ -111,23 +108,20 @@ class ProductController extends ApiController
         $product->price = $request->price;
         $product->save();
 
-        return response([
-            'data' => $product,
-            'message' => 'Product updated.'
-        ], 200);
+        return $this->apiResponse(ResultType::Success, $product, 'Product updated!', 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Product $product
-     * @return Response
+     * @return JsonResponse
      * @throws Exception
      */
     public function destroy(Product $product)
     {
         $product->delete();
-        return response(['message' => 'Product deleted.'], 200);
+        return $this->apiResponse(ResultType::Success, null, 'Product deleted!', 200);
     }
 
     public function custom1()

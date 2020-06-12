@@ -12,6 +12,27 @@
  */
 
 /**
+ * @OA\Server(
+ *     description="Laravel API Test Server",
+ *     url="http://laravelapi.test/api"
+ * )
+ */
+
+/**
+ * @OA\Server(
+ *     description="Laravel API Test Server 2",
+ *     url="http://laravelapi.stage/api"
+ * )
+ */
+
+/**
+ * @OA\ExternalDocumentation(
+ *     description="Find out more about Laravel API",
+ *     url="http://laravelapi.test/example-extra-documantation"
+ * )
+ */
+
+/**
  * @OA\Schema(
  *     title="Product",
  *     description="Product model",
@@ -19,7 +40,8 @@
  *     schema="Product",
  *     properties={
  *      @OA\Property(property="id", type="integer", format="int64", description="id column"),
- *      @OA\Property(property="name", type="string")
+ *      @OA\Property(property="name", type="string"),
+ *      @OA\Property(property="price", type="number")
  *      },
  *     required={"id", "name"}
  * )
@@ -41,8 +63,37 @@
  */
 
 /**
- *  @OA\Get(
- *     path="/api/products",
+ * @OA\Tag(
+ *     name="product",
+ *     description="Product tag description",
+ *     @OA\ExternalDocumentation(
+ *      description="Find out more",
+ *      url="http://laravelapi.test/api/documentation/product"
+ *     )
+ * )
+ */
+
+/**
+ * @OA\SecurityScheme(
+ *     type="apiKey",
+ *     name="api_token",
+ *     securityScheme="api_token",
+ *     in="query"
+ * )
+ */
+
+/**
+ * @OA\SecurityScheme(
+ *     type="http",
+ *     securityScheme="bearer_token",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
+ * )
+ */
+
+/**
+ * @OA\Get(
+ *     path="/products",
  *     tags={"product"},
  *     summary="List all products",
  *     operationId="index",
@@ -70,13 +121,16 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */
 
 /**
- *  @OA\Get(
- *     path="/api/products/{productId}",
+ * @OA\Get(
+ *     path="/products/{productId}",
  *     tags={"product"},
  *     summary="Get Product By Id",
  *     operationId="show",
@@ -101,6 +155,114 @@
  *     response="default",
  *     description="Unexpected Error",
  *     @OA\JsonContent()
- *     )
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
+ * )
+ */
+
+/**
+ * @OA\Post(
+ *     path="/products",
+ *     tags={"product"},
+ *     summary="Create new product",
+ *     operationId="store",
+ *     @OA\RequestBody(
+ *      description="Store a product",
+ *      required=true,
+ *      @OA\JsonContent(ref="#/components/schemas/Product")
+ *     ),
+ *     @OA\Response(
+ *      response=201,
+ *      description="Product created",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
+ * )
+ */
+
+/**
+ * @OA\Put(
+ *     path="/products/{productId}",
+ *     tags={"product"},
+ *     summary="Uptate product",
+ *     operationId="update",
+ *     @OA\Parameter(
+ *      name="productId",
+ *      in="path",
+ *      description="Update product by id",
+ *      required=true,
+ *      @OA\Schema(type="integer", format="int32")
+ *      ),
+ *     @OA\RequestBody(
+ *      description="Update product",
+ *      required=true,
+ *      @OA\JsonContent(ref="#/components/schemas/Product")
+ *     ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product updated",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
+ * )
+ */
+
+/**
+ * @OA\Delete(
+ *     path="/products/{productId}",
+ *     tags={"product"},
+ *     summary="Delete a product.",
+ *     operationId="destroy",
+ *     @OA\Parameter(
+ *      name="productId",
+ *      in="path",
+ *      description="Delete product by id",
+ *      required=true,
+ *      @OA\Schema(type="integer", format="int32")
+ *      ),
+ *     @OA\Response(
+ *      response=200,
+ *      description="Product delete response",
+ *      @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+ *     ),
+ *     @OA\Response(
+ *     response=401,
+ *     description="Unauthorized",
+ *     @OA\JsonContent()
+ *     ),
+ *     @OA\Response(
+ *     response="default",
+ *     description="Unexpected Error",
+ *     @OA\JsonContent()
+ *     ),
+ *     security={
+ *      {"api_token": {}}
+ *     }
  * )
  */

@@ -31,13 +31,13 @@ Route::get('/categories/custom1', 'Api\CategoryController@custom1');
 Route::get('/products/listwithcategories', 'Api\ProductController@listWithCategories');
 
 // database users tablosuna oluşturduğunuz rate_limit kolonu ile kullanıcıya göre limit atama.
-//Route::middleware(['auth:api', 'throttle:rate_limit,1'])->group(function () {
+Route::middleware(['auth:api', 'throttle:rate_limit,1'])->group(function () {
     Route::apiResources([
         '/products'   => 'Api\ProductController',
         '/users'      => 'Api\UserController',
         '/categories' => 'Api\CategoryController'
     ]);
-//});
+});
 
 // 1 dakikada, Guest kişiler 5 authenticated users 10 istek yapabilir.
 Route::middleware('throttle:5|10,1')->group(function () {
