@@ -311,5 +311,15 @@
                 "type": "object"
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "product",
+            "description": "Product tag description",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://laravelapi.test/api/documentation/product"
+            }
+        }
+    ]
 }

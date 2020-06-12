@@ -42,6 +42,17 @@
  */
 
 /**
+ * @OA\Tag(
+ *     name="product",
+ *     description="Product tag description",
+ *     @OA\ExternalDocumentation(
+ *      description="Find out more",
+ *      url="http://laravelapi.test/api/documentation/product"
+ *     )
+ * )
+ */
+
+/**
  * @OA\Get(
  *     path="/api/products",
  *     tags={"product"},
