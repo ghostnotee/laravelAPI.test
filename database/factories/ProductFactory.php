@@ -12,6 +12,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'name' => $productName,
         'slug' => Str::slug($productName),
         'description' => $faker->paragraph(5),
-        'price' => mt_rand(10, 100) / 10 // password
+        'price' => mt_rand(10, 100) / 10
     ];
 });
